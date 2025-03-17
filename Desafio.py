@@ -1,4 +1,4 @@
-import re
+from datetime import datetime
 
 class Banco:
     _instance = None
@@ -11,7 +11,8 @@ class Banco:
     def depositar(self, conta, valor):
         if valor > 0:
             conta.saldo += valor
-            conta.extrato.append(f"Depósito: R${valor:.2f}")
+            data_hora = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+            conta.extrato.append(f"{data_hora} - Depósito: R${valor:.2f}")
             print(f"Depósito de R${valor:.2f} realizado com sucesso!")
         else:
             print("Valor de depósito inválido. Tente novamente.")
@@ -25,7 +26,8 @@ class Banco:
             print("Saldo insuficiente.")
         else:
             conta.saldo -= valor
-            conta.extrato.append(f"Saque: R${valor:.2f}")
+            data_hora = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+            conta.extrato.append(f"{data_hora} - Saque: R${valor:.2f}")
             conta.saques_diarios += 1
             print(f"Saque de R${valor:.2f} realizado com sucesso!")
 
